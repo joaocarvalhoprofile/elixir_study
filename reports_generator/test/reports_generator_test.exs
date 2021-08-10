@@ -83,7 +83,7 @@ defmodule ReportsGeneratorTest do
       assert response == expected_response
     end
 
-    test "When the option is not 'foods or users', returns invalid option" do
+    test "if invalid options, returns an error" do
       file_name = "report_test.csv"
 
       response =
