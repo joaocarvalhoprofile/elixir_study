@@ -29,6 +29,6 @@ defmodule Xirfoods.Orders.Item do
   end
 
   defp build_item(:error, _description, _category, _quantity) do
-    {:error, "Invalid Prince"}
+    {:error, "Invalid Price"}
   end
 end
