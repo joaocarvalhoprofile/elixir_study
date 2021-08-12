@@ -1,6 +1,9 @@
 defmodule Xirfoods.Users.UserTest do
-  alias Xirfoods.Users.User
   use ExUnit.Case
+
+  alias Xirfoods.Users.User
+
+  import Xirfoods.Factory
 
   describe "build/5" do
     test "When all params are valid, return the user" do
@@ -13,26 +16,18 @@ defmodule Xirfoods.Users.UserTest do
           "RUA JOSE TUFAO, 12"
         )
 
-      expected_response =
-        {:ok,
-         %Xirfoods.Users.User{
-           address: "RUA JOSE TUFAO, 12",
-           age: 45,
-           cpf: "56410085249",
-           email: "joao@gmail.com",
-           name: "JOAO CARVALHO"
-         }}
+      expected_response = {:ok, build(:user)}
 
       assert expected_response == response
     end
 
-    test "When Invalid parameters" do
+    test "When there are invalid params, returns an error" do
       response =
         User.build(
           "JOAO CARVALHO",
           "joao@gmail.com",
           0,
-          0,
+          15,
           "RUA JOSE TUFAO, 12"
         )
 
