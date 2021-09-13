@@ -6,20 +6,16 @@ defmodule Transaction do
   defstruct @keys
 
   def save(type, of, value, date, afor \\ nil) do
-    {:ok, binary} = File.read(@transactions)
-
     transactions =
-      binary
-      |> :erlang.binary_to_term()
-
-    transactions =
-      transactions ++
+      find_transactions() ++
         [%__MODULE__{type: type, of: of, value: value, date: date, afor: afor}]
 
     File.write(@transactions, :erlang.term_to_binary(transactions))
   end
 
-  def find_transactions do
+  def find_all, do: find_transactions()
+
+  defp find_transactions do
     {:ok, binary} = File.read(@transactions)
 
     binary
