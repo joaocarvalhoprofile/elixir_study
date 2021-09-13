@@ -54,7 +54,12 @@ defmodule Account do
         {:error, "Insufficient balance"}
 
       true ->
+        accounts = read_account()
+        accounts = List.delete(accounts, account)
         account = %Account{account | balance: account.balance - value}
+        accounts = accounts ++ [account]
+        File.write(@accounts, :erlang.term_to_binary(accounts))
+
         {:ok, account, "Send message sucessuful"}
     end
   end
