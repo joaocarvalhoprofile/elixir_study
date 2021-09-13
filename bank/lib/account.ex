@@ -30,17 +30,15 @@ defmodule Account do
   def find_by_email(email), do: Enum.find(read_account(), &(&1.user.email == email))
 
   def pix(of, afor, avalue) do
-    of = find_by_email(of.user.email)
+    of = find_by_email(of)
+    afor = find_by_email(afor)
 
     cond do
       valid_balance(of.balance, avalue) ->
         {:error, "Insufficient balance"}
 
       true ->
-        accounts = read_account()
-        accounts = List.delete(accounts, of)
-        accounts = List.delete(accounts, afor)
-
+        accounts = Account.delete([of, afor])
         of = %Account{of | balance: of.balance - avalue}
         afor = %Account{afor | balance: afor.balance + avalue}
         accounts = accounts ++ [of, afor]
@@ -48,14 +46,19 @@ defmodule Account do
     end
   end
 
+  def delete(accounts) do
+    Enum.reduce(accounts, read_account(), fn c, acc -> List.delete(acc, c) end)
+  end
+
   def withdraw(account, value) do
+    account = find_by_email(account)
+
     cond do
       valid_balance(account.balance, value) ->
         {:error, "Insufficient balance"}
 
       true ->
-        accounts = read_account()
-        accounts = List.delete(accounts, account)
+        accounts = Account.delete([account])
         account = %Account{account | balance: account.balance - value}
         accounts = accounts ++ [account]
         File.write(@accounts, :erlang.term_to_binary(accounts))
