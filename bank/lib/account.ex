@@ -43,7 +43,8 @@ defmodule Account do
         afor = %Account{afor | balance: afor.balance + avalue}
         accounts = accounts ++ [of, afor]
 
-        Transaction.save("pix", of.user.email, avalue, afor.user.email)
+        # save(type, of, value, date, afor \\ nil)
+        Transaction.save("pix", of.user.email, avalue, Date.utc_today(), afor.user.email)
 
         File.write(@accounts, :erlang.term_to_binary(accounts))
     end
