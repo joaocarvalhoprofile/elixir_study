@@ -1,9 +1,9 @@
 defmodule Xirfoods.Orders.AgentTest do
   use ExUnit.Case
 
-  alias Xirfoods.Orders.Agent, as: OrderAgent
-
   import Xirfoods.Factory
+
+  alias Xirfoods.Orders.Agent, as: OrderAgent
 
   describe "save/1" do
     test "sves the order" do
