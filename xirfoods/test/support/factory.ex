@@ -8,7 +8,7 @@ defmodule Xirfoods.Factory do
     %User{
       address: "RUA JOSE TUFAO, 12",
       age: 45,
-      cpf: "56410085249",
+      cpf: "12345678900",
       email: "joao@gmail.com",
       name: "JOAO CARVALHO"
     }
@@ -36,7 +36,7 @@ defmodule Xirfoods.Factory do
         )
       ],
       total_price: Decimal.new("140.00"),
-      user_cpf: "56410085249"
+      user_cpf: "12345678900"
     }
   end
 end

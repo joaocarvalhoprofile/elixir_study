@@ -11,7 +11,7 @@ defmodule Xirfoods.Users.UserTest do
         User.build(
           "JOAO CARVALHO",
           "joao@gmail.com",
-          "56410085249",
+          "12345678900",
           45,
           "RUA JOSE TUFAO, 12"
         )
