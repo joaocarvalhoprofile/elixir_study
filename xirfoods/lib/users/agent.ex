@@ -7,7 +7,9 @@ defmodule Xirfoods.Users.Agent do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
-  def save(%{} = user), do: Agent.update(__MODULE__, &update_state(&1, user))
+  def save(%User{} = user) do
+    Agent.update(__MODULE__, &update_state(&1, user))
+  end
 
   def get(cpf), do: Agent.get(__MODULE__, &get_user(&1, cpf))
 
@@ -18,5 +20,7 @@ defmodule Xirfoods.Users.Agent do
     end
   end
 
-  defp update_state(state, %User{cpf: cpf} = user), do: Map.put(state, cpf, user)
+  defp update_state(state, %User{cpf: cpf} = user) do
+    Map.put(state, cpf, user)
+  end
 end

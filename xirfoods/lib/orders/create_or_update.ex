@@ -1,8 +1,8 @@
 defmodule Xirfoods.Orders.CreateOrUpdate do
   alias Xirfoods.Orders.Agent, as: OrderAgent
-  alias Xirfoods.Users.Agent, as: UserAgent
   alias Xirfoods.Orders.Item
   alias Xirfoods.Orders.Order
+  alias Xirfoods.Users.Agent, as: UserAgent
 
   def call(%{user_cpf: user_cpf, items: items}) do
     with {:ok, user} <- UserAgent.get(user_cpf),

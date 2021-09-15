@@ -9,11 +9,15 @@ defmodule Xirfoods.Orders.Agent do
 
   def save(%{} = order) do
     uuid = UUID.uuid4()
-
     Agent.update(__MODULE__, &update_state(&1, order, uuid))
+    {:ok, uuid}
   end
 
   def get(uuid), do: Agent.get(__MODULE__, &get_order(&1, uuid))
+
+  defp update_state(state, %Order{} = order, uuid) do
+    Map.put(state, uuid, order)
+  end
 
   defp get_order(state, uuid) do
     case Map.get(state, uuid) do
@@ -21,6 +25,4 @@ defmodule Xirfoods.Orders.Agent do
       order -> {:ok, order}
     end
   end
-
-  defp update_state(state, %Order{} = order, uuid), do: Map.put(state, uuid, order)
 end

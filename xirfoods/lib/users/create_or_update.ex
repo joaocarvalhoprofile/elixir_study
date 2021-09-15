@@ -3,8 +3,8 @@ defmodule Xirfoods.Users.CreateOrUpdate do
   alias Xirfoods.Users.User
 
   def call(%{name: name, cpf: cpf, email: email, age: age, address: address}) do
-    address
-    |> User.build(name, email, cpf, age)
+    name
+    |> User.build(email, cpf, age, address)
     |> save_user()
   end
 
