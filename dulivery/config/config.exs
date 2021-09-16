@@ -10,6 +10,10 @@ use Mix.Config
 config :dulivery,
   ecto_repos: [Dulivery.Repo]
 
+config :dulivery, Dulivery.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
+
 # Configures the endpoint
 config :dulivery, DuliveryWeb.Endpoint,
   url: [host: "localhost"],
