@@ -1,5 +1,6 @@
 defmodule Dulivery.Users.Create do
-  alias Dulivery.{Repo, User}
+  alias Dulivery.Repo
+  alias Dulivery.Users.User
 
   def call(params) do
     params

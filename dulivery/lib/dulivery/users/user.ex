@@ -1,4 +1,4 @@
-defmodule Dulivery.User do
+defmodule Dulivery.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -7,6 +7,8 @@ defmodule Dulivery.User do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @required_params [:name, :email, :password, :cpf, :age, :cep, :address]
+
+  @derive {Jason.Encoder, only: [:id, :name, :email, :cpf, :cep, :address]}
 
   schema "users" do
     field :name, :string

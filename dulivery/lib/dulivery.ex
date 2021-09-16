@@ -1,9 +1,6 @@
 defmodule Dulivery do
-  @moduledoc """
-  Dulivery keeps the contexts that define your domain
-  and business logic.
+  alias Dulivery.Users.Create, as: UserCreate
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  # Users
+  defdelegate create_user(params), to: UserCreate, as: :call
 end
