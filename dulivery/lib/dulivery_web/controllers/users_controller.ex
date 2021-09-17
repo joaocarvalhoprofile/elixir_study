@@ -21,4 +21,12 @@ defmodule DuliveryWeb.UsersController do
       |> render("show.json", user: user)
     end
   end
+
+  def delete(conn, %{"id" => uuid}) do
+    with {:ok, %User{}} <- Dulivery.delete_user(uuid) do
+      conn
+      |> put_status(:no_content)
+      |> text("")
+    end
+  end
 end
