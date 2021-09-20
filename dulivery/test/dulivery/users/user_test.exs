@@ -1,20 +1,14 @@
 defmodule Dulivery.Users.UserTest do
   use Dulivery.DataCase, async: true
 
-  alias Ecto.Changeset
+  import Dulivery.Factory
+
   alias Dulivery.Users.User
+  alias Ecto.Changeset
 
   describe "changeset/2" do
     test "when all params are valid, returns a valid changeset" do
-      params = %{
-        name: "JOHN DOE",
-        email: "john@gmail.com",
-        password: "123456",
-        cpf: "12345678900",
-        age: 45,
-        cep: "12345678",
-        address: "RUA X"
-      }
+      params = build(:user_params)
 
       response = User.changeset(params)
 
@@ -22,15 +16,7 @@ defmodule Dulivery.Users.UserTest do
     end
 
     test "when updating a changeset, returns a valid changeset with the given changes" do
-      params = %{
-        name: "JOHN DOE",
-        email: "john@gmail.com",
-        password: "123456",
-        cpf: "12345678900",
-        age: 45,
-        cep: "12345678",
-        address: "RUA X"
-      }
+      params = build(:user_params)
 
       update_params = %{name: "JOHN THREE", password: "123456"}
 
@@ -43,19 +29,14 @@ defmodule Dulivery.Users.UserTest do
     end
 
     test "when there are some error, returns an invalid changeset" do
-      params = %{
-        name: "JOHN DOE",
-        email: "john@gmail.com",
-        password: "123123",
-        cpf: "12345678900",
-        age: 45,
-        cep: "123",
-        address: "RUA X"
-      }
+      params = build(:user_params, %{cep: "123", password: "123"})
 
       response = User.changeset(params)
 
-      expected_response = %{cep: ["should be 8 character(s)"]}
+      expected_response = %{
+        cep: ["should be 8 character(s)"],
+        password: ["should be at least 6 character(s)"]
+      }
 
       assert errors_on(response) == expected_response
     end

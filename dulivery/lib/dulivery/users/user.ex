@@ -28,7 +28,7 @@ defmodule Dulivery.Users.User do
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> validate_format(:email, ~r/@/)
-    |> validate_length(:password_hash, min: 6)
+    |> validate_length(:password, min: 6)
     |> validate_length(:cep, is: 8)
     |> validate_length(:cpf, is: 11)
     |> unique_constraint([:email])
