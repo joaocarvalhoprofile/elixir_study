@@ -1,6 +1,8 @@
 defmodule DuliveryWeb.UsersControllerTest do
   use DuliveryWeb.ConnCase, async: true
 
+  import Dulivery.Factory
+
   describe "create/2" do
     test "when all params are valid, creates the user", %{conn: conn} do
       params = %{
@@ -54,6 +56,20 @@ defmodule DuliveryWeb.UsersControllerTest do
       }
 
       assert expected_response == response
+    end
+  end
+
+  describe "delete/2" do
+    test "when thre is a user with the given id, deletes the user", %{conn: conn} do
+      id = "eda0abb4-2b23-4dd9-a95e-2d79a1200e25"
+      insert(:user)
+
+      response =
+        conn
+        |> delete(Routes.users_path(conn, :delete, id))
+        |> response(:no_content)
+
+      assert response == ""
     end
   end
 end
