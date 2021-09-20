@@ -1,8 +1,11 @@
 defmodule DuliveryWeb.Router do
   use DuliveryWeb, :router
 
+  alias DuliveryWeb.Plugs.UUIDChecker
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug UUIDChecker
   end
 
   scope "/api", DuliveryWeb do

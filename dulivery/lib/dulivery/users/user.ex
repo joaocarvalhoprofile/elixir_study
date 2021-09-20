@@ -8,7 +8,7 @@ defmodule Dulivery.Users.User do
 
   @required_params [:name, :email, :password, :cpf, :age, :cep, :address]
 
-  @derive {Jason.Encoder, only: [:id, :name, :email, :cpf, :cep, :address]}
+  @derive {Jason.Encoder, only: [:id, :name, :age, :email, :cpf, :cep, :address]}
 
   schema "users" do
     field :name, :string
