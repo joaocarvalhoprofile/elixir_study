@@ -29,8 +29,11 @@ defmodule DuliveryWeb.ErrorView do
   defp translate_errors(changeset) do
     traverse_errors(changeset, fn {msg, opts} ->
       Regex.replace(~r"%{(\w+)}", msg, fn _, key ->
-        opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
+        opts |> Keyword.get(String.to_existing_atom(key), key) |> translete_value()
       end)
     end)
   end
+
+  defp translete_value({:parametrized, Ecto.Enum, _map}), do: ""
+  defp translete_value(value), do: to_string(value)
 end
